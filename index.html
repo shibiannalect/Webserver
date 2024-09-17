@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAITRA Animation</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .letter {
+      position: absolute;
+      font-size: 48px;
+      font-weight: bold;
+      color: #333;
+      transition: all 0.5s ease-in-out;
+    }
+    .letter:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="letters">
+    <span class="letter" id="C">C</span>
+    <span class="letter" id="H">H</span>
+    <span class="letter" id="A">A</span>
+    <span class="letter" id="I">I</span>
+    <span class="letter" id="T">T</span>
+    <span class="letter" id="R">R</span>
+    <span class="letter" id="A2">A</span>
+    <span class="letter" id="T2">T</span>
+    <span class="letter" id="H2">H</span>
+    <span class="letter" id="E">E</span>
+    <span class="letter" id="G">G</span>
+    <span class="letter" id="R2">R</span>
+    <span class="letter" id="E2">E</span>
+    <span class="letter" id="A3">A</span>
+    <span class="letter" id="T3">T</span>
+  </div>
+
+  <script>
+    let letters = document.querySelectorAll('.letter');
+    let formed = false;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+
+    // Randomly position the letters within the screen boundaries
+    function randomizeLetters() {
+      letters.forEach((letter) => {
+        let x = Math.random() * (screenWidth - 50);
+        let y = Math.random() * (screenHeight - 50);
+        letter.style.top = `${y}px`;
+        letter.style.left = `${x}px`;
+      });
+    }
+
+    // Call the function to randomize the letters initially
+    randomizeLetters();
+
+    // Add event listener to form the word on click
+    document.addEventListener('click', () => {
+      if (!formed) {
+        formed = true;
+        clearInterval(intervalId);
+        let x = (screenWidth - (7 * 40)) / 2;
+        let y = screenHeight / 2 - 24;
+        let index = 0;
+        letters.forEach((letter) => {
+          if (index < 7) {
+            letter.style.top = `${y}px`;
+            letter.style.left = `${x}px`;
+            x += 40;
+          } else {
+            letter.style.top = `${y + 60}px`;
+            letter.style.left = `${x - (6 * 40)}px`;
+            x += 40;
+          }
+          index++;
+        });
+      }
+    });
+
+    // Randomly move the letters every 100ms
+    let intervalId = setInterval(randomizeLetters, 100);
+  </script>
+</body>
+</html>
